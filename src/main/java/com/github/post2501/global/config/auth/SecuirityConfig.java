@@ -45,12 +45,9 @@ public class SecuirityConfig {
                 .sessionManagement((session) ->
                         session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 )
-                .authorizeHttpRequests((auth) ->
-                        auth.requestMatchers(
-                                "/swagger-ui.html",
-                                "/v3/api-docs/**",
-                                "/swagger-ui/**",
-                                "/auth/**").permitAll()
+                .authorizeHttpRequests((auth) -> auth
+                        .requestMatchers("/api/v1/**").authenticated()
+                        .anyRequest().permitAll()
                 )
                 .logout((logout) -> logout
                         .logoutUrl("/logout")
