@@ -1,10 +1,12 @@
 package com.github.post2501.auth.controller;
 
+import com.github.post2501.auth.dto.LoginDto;
 import com.github.post2501.auth.dto.SignUpDto;
 import com.github.post2501.auth.service.UserService;
 import com.github.post2501.global.dto.MsgResponseDto;
 import com.github.post2501.global.exception.ErrorCode;
 import io.swagger.v3.oas.annotations.Operation;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -18,7 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @Slf4j
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/auth")
 @RequiredArgsConstructor
 public class AuthController {
 
@@ -38,4 +40,14 @@ public class AuthController {
 
       return ResponseEntity.ok(new MsgResponseDto("회원가입이 완료되었습니다.", HttpStatus.OK.value()));
     }
+
+    // 로그인
+    @Operation(summary = "유저 로그인", description = "로그인 api 입니다.")
+    @PostMapping("/login")
+    public ResponseEntity<?> login(@RequestBody LoginDto loginDto, HttpServletResponse httpServletResponse) {
+        log.info("[POST]: 로그인 요청");
+
+        return userService.login(loginDto, httpServletResponse);
+    }
+
 }
