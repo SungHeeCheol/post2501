@@ -35,10 +35,4 @@ public class UserEntity {
 
     @Column(name = "created_at")
     private LocalDateTime createdAt;
-
-    // 비밀번호 암호화
-    public void passwordEncoder(PasswordEncoder passwordEncoder) {
-        this.password = passwordEncoder.encode(this.password);
-    }
-
 }
