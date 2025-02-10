@@ -45,6 +45,7 @@ public class SecuirityConfig {
                 .sessionManagement((session) ->
                         session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 )
+                // api뒤에 'v1' 붙어있으면 인증 요구
                 .authorizeHttpRequests((auth) -> auth
                         .requestMatchers("/api/v1/**").authenticated()
                         .anyRequest().permitAll()
